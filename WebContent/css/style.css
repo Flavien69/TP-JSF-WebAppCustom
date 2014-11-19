@@ -1,0 +1,25 @@
+.footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #f5f5f5;
+}
+
+.home-btn .btn{
+	width:100%;
+	height:250px;
+	margin-top: 150px;
+}
+
+.cancel-btn{
+	margin-bottom:15px;
+}
+
+.signup-form{
+	margin-top:70px;
+}
+
+.header-recipes{
+	background-color: #5cb85c;
+}
