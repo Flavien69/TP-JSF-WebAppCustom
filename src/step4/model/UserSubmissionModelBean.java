@@ -8,7 +8,7 @@ import javax.faces.bean.RequestScoped;
 public class UserSubmissionModelBean extends UserModelBean{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String repeatPwd;
 
 	public UserSubmissionModelBean() {
@@ -20,7 +20,11 @@ public class UserSubmissionModelBean extends UserModelBean{
 		this.repeatPwd = repeatPwd;
 	}
 
-	
+	public UserSubmissionModelBean( String repeatPwd) {
+		super();
+		this.repeatPwd = repeatPwd;
+	}
+
 	public String getRepeatPwd() {
 		return repeatPwd;
 	}
@@ -28,4 +32,6 @@ public class UserSubmissionModelBean extends UserModelBean{
 	public void setRepeatPwd(String repeatPwd) {
 		this.repeatPwd = repeatPwd;
 	}
+
 }
+
