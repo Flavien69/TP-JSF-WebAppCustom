@@ -7,6 +7,12 @@
 	xmlns:p="http://primefaces.org/ui">  
 
 <h:form>
+<h:inputText value="#{userModelBean.lastname}"></h:inputText>
+	<h:commandButton action="#{recipeControlerBean.searchRecipes(recipeModelBean)}">Teach Me</h:commandButton>
+
+</h:form>
+
+<!-- <h:form>
 	<div class="container well">
 		<div class="row">
 			<div class="col-sm-6">
@@ -33,7 +39,7 @@
 	</div> 
 	  
 	<h:commandButton action="#{recipeControlerBean.searchRecipes(recipeModelBean)}">Teach Me</h:commandButton>
-</h:form>
+</h:form> -->
 
 
  </ui:composition>
