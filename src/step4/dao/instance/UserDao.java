@@ -37,8 +37,10 @@ public class UserDao {
 			query = connection.createStatement();
 
 			// Executer puis parcourir les r�sultats
-			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`surname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
-					+ user.getSurname()
+			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
+					+ user.getEmail()
+					+ "', '"
+					+ user.getFirstname()
 					+ "', '"
 					+ user.getLastname()
 					+ "', '"
@@ -47,9 +49,12 @@ public class UserDao {
 					+ user.getLogin()
 					+ "', '"
 					+ user.getPwd()
-					+ "', '"
-					+ user.getEmail() + "');";
+					+ "');";
+			
+			
 			int rs = query.executeUpdate(sql);
+			
+			
 			query.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -78,7 +83,7 @@ public class UserDao {
 			while (rs.next()) {
 				// Cr�ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
-						rs.getString("lastname"), rs.getString("surname"),
+						rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
 						rs.getInt("age"), rs.getString("login"),
 						rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User : " + user);
@@ -118,7 +123,7 @@ public class UserDao {
 			} else {
 				// Cr�ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
-				rs.getString("lastname"), rs.getString("surname"),
+				rs.getString("firstname"),rs.getString("lastname"), rs.getString("email"),
 				rs.getInt("age"), rs.getString("login"),
 				rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User Login : " + user);

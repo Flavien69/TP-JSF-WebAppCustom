@@ -14,7 +14,7 @@ import step4.dao.instance.UserDao;
 import step4.model.UserSubmissionModelBean;
 
 @ManagedBean
-@ApplicationScoped // Utilisation de application scope afin d'offrir un point d'entré unique à l'ensemble des clients
+@ApplicationScoped // Utilisation de application scope afin d'offrir un point d'entrï¿½ unique ï¿½ l'ensemble des clients
 public class UserControlerBean {
 	private UserDao userDao;
 	
@@ -26,11 +26,11 @@ public class UserControlerBean {
 		UserModelBean user = this.userDao.checkUser(loginBean.getLogin(), loginBean.getPwd());
 		if( user!=null){
 			
-			//récupère l'espace de mémoire de JSF
+			//rï¿½cupï¿½re l'espace de mï¿½moire de JSF
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 			Map<String, Object> sessionMap = externalContext.getSessionMap();
 			
-			//place l'utilisateur dans l'espace de mémoire de JSF
+			//place l'utilisateur dans l'espace de mï¿½moire de JSF
 			sessionMap.put("loggedUser", user);
 			
 			//redirect the current page
@@ -42,13 +42,16 @@ public class UserControlerBean {
 		}
 	}
 	
-	public void checkAndAddUser(UserSubmissionModelBean userSubmitted){
+	public void checkAndAddUser(UserSubmissionModelBean userSubmitted ){
 		
-		//Vérifier les propriétés de l'utilisateur
-		//TODO
+		//Vï¿½rifier les propriï¿½tï¿½s de l'utilisateur
+		 
+		if (userSubmitted.getPwd().equals(userSubmitted.getRepeatPwd()))
+		{
+			this.userDao.addUser(userSubmitted);
+		}
+		//ajout de l'utilisateur ï¿½ la base de donnï¿½es
 		
-		//ajout de l'utilisateur à la base de données
-		this.userDao.addUser(userSubmitted);
 	}
 
 }

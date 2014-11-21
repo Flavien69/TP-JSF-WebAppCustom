@@ -15,7 +15,7 @@ public final class DaoFabric {
 
 	private static final String DB_HOST = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DB_NAME = "stepbystep";
+	private static final String DB_NAME = "cookMe";
 	private static final String DB_USER = "client";
 	private static final String DB_PWD = "client";
 	private static final String DB_TABLE_USER = "users";
