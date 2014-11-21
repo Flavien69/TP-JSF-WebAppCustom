@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import step4.model.RecipeModel;
+import step4.model.RecipeModelBean;
 
 public class RecipesDao {
 
@@ -23,18 +23,18 @@ public class RecipesDao {
 		dB_PWD = DB_PWD;
 	}
 
-	public void addRecipe(RecipeModel recipe) {
-		// Création de la requête
+	public void addRecipe(RecipeModelBean recipe) {
+		// Crï¿½ation de la requï¿½te
 		java.sql.Statement query;
 		
 		// create connection
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
 					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
-			// Creation de l'élément de requète
+			// Creation de l'ï¿½lï¿½ment de requï¿½te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les résultats
+			// Executer puis parcourir les rï¿½sultats
 			String sql = "INSERT INTO `binome32`.`RecipeTestTP` (`title`, `description`, `expertise`, `duration`, `nbpeople`,`type`) VALUES ('"
 					+ recipe.getTitle()
 					+ "', '"
@@ -54,10 +54,10 @@ public class RecipesDao {
 		}
 	}
 
-	public ArrayList<RecipeModel> getAllRecipes() {
-		ArrayList<RecipeModel> recipeList = new ArrayList<RecipeModel>();
+	public ArrayList<RecipeModelBean> getAllRecipes() {
+		ArrayList<RecipeModelBean> recipeList = new ArrayList<RecipeModelBean>();
 
-		// Création de la requête
+		// Crï¿½ation de la requï¿½te
 		java.sql.Statement query;
 
 		try {
@@ -66,21 +66,21 @@ public class RecipesDao {
 		connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
 				+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 
-			// Creation de l'élément de requète
+			// Creation de l'ï¿½lï¿½ment de requï¿½te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les résultats
+			// Executer puis parcourir les rï¿½sultats
 			java.sql.ResultSet rs = query
 					.executeQuery("SELECT * FROM RecipeTestTP;");
 			while (rs.next()) {
-				// Création de  la recette
-				RecipeModel recipe = new RecipeModel(
+				// Crï¿½ation de  la recette
+				RecipeModelBean recipe = new RecipeModelBean(
 						rs.getString("title"), rs.getString("description"),
 						rs.getInt("expertise"), rs.getInt("duration"),
 						rs.getInt("nbpeople"), rs.getString("type"));
 				System.out.println("Recipe : " + recipe);
 
-				// ajout de la recette récupérée à la liste
+				// ajout de la recette rï¿½cupï¿½rï¿½e ï¿½ la liste
 				recipeList.add(recipe);
 			}
 			rs.close();

@@ -5,8 +5,35 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">  
-   
- <p> coucou</p>
- <p:spinner/>
+
+<h:form>
+	<div class="container well">
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Preparation Duration</h3>
+				 <p:spinner value="#{userModelBean.age}"/>
+				
+			</div>
+			<div class="col-sm-6">
+				<h3>Cook expertise</h3>
+		    	<p:rating cancel="false" value="#{recipeModelBean.expertise}"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Preparation Duration</h3>
+				 <p:spinner value="#{userModelBean.age}"/>
+				
+			</div>
+			<div class="col-sm-6">
+				<h3>Cook expertise</h3>
+		    	<p:rating cancel="false" value="#{recipeModelBean.expertise}"/>
+			</div>
+		</div>			
+	</div> 
+	  
+	<h:commandButton action="#{recipeControlerBean.searchRecipes(recipeModelBean)}">Teach Me</h:commandButton>
+</h:form>
+
 
  </ui:composition>
