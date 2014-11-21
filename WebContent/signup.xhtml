@@ -16,27 +16,23 @@
    
    <ui:define name="content">
    
-	   <h:form class="form-horizontal well signup-form" action="UserControlerBean.checkAndAddUser(#{userModelBean})">
-<jsp:useBean id="myUser" scope="session"	class="step4.model.UserModelBean" />
-<jsp:setProperty name="myUser" property="surname" />
-<jsp:setProperty name="myUser" property="lastname" />
-<jsp:setProperty name="myUser" property="age" />
-<jsp:setProperty name="myUser" property="login" />
-<jsp:setProperty name="myUser" property="email" />
-<jsp:setProperty name="myUser" property="pwd" />
+	   <h:form class="form-horizontal well signup-form" >
 	   		 <div class="col-xs-12">
 		      <button type="submit" class="btn btn-xs btn-danger pull-right cancel-btn">X</button>
 		    </div>
 		  <div class="form-group">
-		    <label for="inputFirstName" class="col-sm-2 control-label">Fist Name</label>
+		    <label for="inputFirstName" class="col-sm-2 control-label" >Fist Name</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputFirstNAme" placeholder="First name"></input>
+		      <h:inputText id="firstname" class="form-control" value="#{userSubmissionModelBean.firstname}" required="true">
+				<f:validator validatorId="validators.lastname" />
+				</h:inputText>
+				<h:message for="firstname" showDetail="true" style="color:red"/>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="lastName" class="col-sm-2 control-label">Last Name</label>
 		    <div class="col-sm-10">
-   				<h:inputText id="lastname" class="form-control" value="#{userModelBean.lastname}" required="true">
+   				<h:inputText id="lastname" class="form-control" value="#{userSubmissionModelBean.lastname}" required="true">
 				<f:validator validatorId="validators.lastname" />
 				</h:inputText>
 				<h:message for="lastname" showDetail="true" style="color:red"/>
@@ -45,7 +41,7 @@
 		  <div class="form-group">
 		    <label for="inputAge" class="col-sm-2 control-label">Age</label>
 		    <div class="col-sm-10">
-		      <h:inputText type="number" class="form-control" id="inputAge" placeholder="Age">
+		      <h:inputText type="number" class="form-control" id="inputAge" placeholder="Age" value="#{userSubmissionModelBean.age}">
 			  <f:validator validatorId="validators.age" />
 			  </h:inputText>
 			  <h:message for="inputAge" showDetail="true" style="color:red"/>	   
@@ -54,7 +50,7 @@
 		  <div class="form-group">
 		    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 			    <div class="col-sm-10">
-	   				<h:inputText id="email" class="form-control" value="#{userModelBean.email}" required="true">
+	   				<h:inputText id="email" class="form-control" value="#{userSubmissionModelBean.email}" required="true">
 					<f:validator validatorId="validators.email" />
 					</h:inputText>
 					<h:message for="email" showDetail="true" style="color:red"/>
@@ -63,7 +59,7 @@
 		  <div class="form-group">
 		    <label for="inputLogin" class="col-sm-2 control-label">Login</label>
 		    <div class="col-sm-10">
-	   				<h:inputText id="login" class="form-control" value="#{userModelBean.login}" required="true">
+	   				<h:inputText id="login" class="form-control" value="#{userSubmissionModelBean.login}" required="true">
 					<f:validator validatorId="validators.lastname" />
 					</h:inputText>
 					<h:message for="login" showDetail="true" style="color:red"/>
@@ -72,14 +68,14 @@
 		  <div class="form-group">
 		    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
 		    <div class="col-sm-10">
-				<h:inputSecret id="password" binding="#{passwordComponent}" value="#{userModelBean.pwd}" required="true"></h:inputSecret>
-				<h:message for="password" />
+				<h:inputSecret id="pwd" binding="#{passwordComponent}" value="#{userSubmissionModelBean.pwd}" required="true"></h:inputSecret>
+				<h:message for="pwd" />
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputRepeatPassword" class="col-sm-2 control-label">Repeat Password</label>
 		    <div class="col-sm-10">
-				<h:inputSecret id="confirm" required="#{not empty password.value}">
+				<h:inputSecret id="confirm" required="#{not empty password.value}"  value="#{userSubmissionModelBean.repeatPwd}">
 				    <f:validator validatorId="validators.password"/>
 				    <f:attribute name="passwordComponent" value="#{passwordComponent}"/>
 				</h:inputSecret>
@@ -88,7 +84,7 @@
 		  </div>		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-4">
-		      <button type="submit" class="btn btn-default">Sign in</button>
+		      <h:commandButton class="btn btn-default" action="#{userControlerBean.checkAndAddUser(userSubmissionModelBean)}">Sign in</h:commandButton>
 		    </div>		    
 		  </div>
 		</h:form>

@@ -30,12 +30,14 @@ public class RecipeControlerBean {
 //			//recipeList.addRecipeList(recipe);
 //		}
 		
+
 		//r�cup�re l'espace de m�moire de JSF
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		
 		//place la liste de recette dans l'espace de m�moire de JSF
 		//sessionMap.put("recipeList", recipeList);
+
 		
 	}
 

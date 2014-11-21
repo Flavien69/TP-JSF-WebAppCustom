@@ -9,8 +9,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class UserModelBean implements Serializable{
+	private String firstname;
 	private String lastname;
-	private String surname;
 	private int age;
 	private String login;
 	private String email;
@@ -20,13 +20,21 @@ public class UserModelBean implements Serializable{
 	public UserModelBean() {
 	}
 	
-	public UserModelBean(String lastname,String surname,int age,String login,String pwd,String email) {
+	public UserModelBean(String firstname, String lastname ,int age,String login,String pwd,String email) {
+		this.firstname = firstname;
 		this.lastname = lastname;
-		this.surname = surname;
 		this.age = age;
 		this.login = login;
 		this.pwd = pwd;
 		this.email = email;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getEmail() {
@@ -43,14 +51,6 @@ public class UserModelBean implements Serializable{
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public int getAge() {
@@ -80,7 +80,7 @@ public class UserModelBean implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "[SURNAME]:"+this.getSurname()+",[LASTNAME]:"+this.getLastname()+",[AGE]:"+this.getAge()+",[LOGIN]:"+this.getLogin()+",[PWD]:"+this.getPwd()+",[EMAIL]:"+this.getEmail();
+		return "[LASTNAME]:"+this.getLastname()+",[AGE]:"+this.getAge()+",[LOGIN]:"+this.getLogin()+",[PWD]:"+this.getPwd()+",[EMAIL]:"+this.getEmail();
 	}
 	
 
