@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import step3.model.RecipeModelBean;
 import step4.dao.fabric.DaoFabric;
 import step4.dao.instance.RecipesDao;
 import step4.model.RecipeListModelBean;
@@ -34,11 +33,11 @@ public class RecipeControlerBean {
 			recipeList.addRecipeList(recipe);
 		}
 		
-		//récupère l'espace de mémoire de JSF
+		//rï¿½cupï¿½re l'espace de mï¿½moire de JSF
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		
-		//place la liste de recette dans l'espace de mémoire de JSF
+		//place la liste de recette dans l'espace de mï¿½moire de JSF
 		sessionMap.put("recipeList", recipeList);
 		
 	}

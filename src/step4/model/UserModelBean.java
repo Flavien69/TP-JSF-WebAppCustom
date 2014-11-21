@@ -20,7 +20,7 @@ public class UserModelBean implements Serializable{
 	public UserModelBean() {
 	}
 	
-	public UserModelBean(String firstname, String lastname,String surname,int age,String login,String pwd,String email) {
+	public UserModelBean(String firstname, String lastname ,int age,String login,String pwd,String email) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.age = age;

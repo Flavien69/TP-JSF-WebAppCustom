@@ -83,7 +83,7 @@ public class UserDao {
 			while (rs.next()) {
 				// Cr�ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
-						rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
+						rs.getString("firstname"), rs.getString("lastname"),
 						rs.getInt("age"), rs.getString("login"),
 						rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User : " + user);
@@ -123,7 +123,7 @@ public class UserDao {
 			} else {
 				// Cr�ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
-				rs.getString("firstname"),rs.getString("lastname"), rs.getString("email"),
+				rs.getString("firstname"),rs.getString("lastname"), 
 				rs.getInt("age"), rs.getString("login"),
 				rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User Login : " + user);
