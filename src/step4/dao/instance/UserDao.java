@@ -14,7 +14,8 @@ public class UserDao {
 	private String dB_NAME;
 	private String dB_USER;
 	private String dB_PWD;
-
+	private String dB_USERTABLE = "users";
+	
 	public UserDao(String DB_HOST, String DB_PORT, String DB_NAME,
 			String DB_USER, String DB_PWD) {
 		dB_HOST = DB_HOST;
@@ -25,18 +26,18 @@ public class UserDao {
 	}
 
 	public void addUser(UserModelBean user) {
-		// Création de la requête
+		// Crï¿½ation de la requï¿½te
 		java.sql.Statement query;
 		try {
 			// create connection
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
 					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 
-			// Creation de l'élément de requète
+			// Creation de l'ï¿½lï¿½ment de requï¿½te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les résultats
-			String sql = "INSERT INTO `binome32`.`UserTestTP` (`surname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
+			// Executer puis parcourir les rï¿½sultats
+			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`surname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
 					+ user.getSurname()
 					+ "', '"
 					+ user.getLastname()
@@ -45,7 +46,9 @@ public class UserDao {
 					+ "', '"
 					+ user.getLogin()
 					+ "', '"
-					+ user.getPwd() + "');";
+					+ user.getPwd()
+					+ "', '"
+					+ user.getEmail() + "');";
 			int rs = query.executeUpdate(sql);
 			query.close();
 			connection.close();
@@ -63,24 +66,24 @@ public class UserDao {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
 					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 
-			// Création de la requête
+			// Crï¿½ation de la requï¿½te
 			java.sql.Statement query;
 
-			// Creation de l'élément de requète
+			// Creation de l'ï¿½lï¿½ment de requï¿½te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les résultats
+			// Executer puis parcourir les rï¿½sultats
 			java.sql.ResultSet rs = query
-					.executeQuery("SELECT * FROM UserTestTP");
+					.executeQuery("SELECT * FROM "+dB_USERTABLE);
 			while (rs.next()) {
-				// Création de l'utilisateur
+				// Crï¿½ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
 						rs.getString("lastname"), rs.getString("surname"),
 						rs.getInt("age"), rs.getString("login"),
-						rs.getString("pwd"));
+						rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User : " + user);
 
-				// ajout de l'utilisateur récupéré à la liste
+				// ajout de l'utilisateur rï¿½cupï¿½rï¿½ ï¿½ la liste
 				userList.add(user);
 			}
 			rs.close();
@@ -99,25 +102,25 @@ public class UserDao {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
 					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 
-			// Création de la requête
+			// Crï¿½ation de la requï¿½te
 			java.sql.Statement query;
 
-			// Creation de l'élément de requète
+			// Creation de l'ï¿½lï¿½ment de requï¿½te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les résultats
+			// Executer puis parcourir les rï¿½sultats
 			java.sql.ResultSet rs = query
-					.executeQuery("SELECT * FROM UserTestTP where login='"
+					.executeQuery("SELECT * FROM "+dB_USERTABLE+" where login='"
 							+ login + "' and pwd='" + pwd + "';");
 
 			if (!rs.next()) {
 				return null;
 			} else {
-				// Création de l'utilisateur
+				// Crï¿½ation de l'utilisateur
 				UserModelBean user = new UserModelBean(
 				rs.getString("lastname"), rs.getString("surname"),
 				rs.getInt("age"), rs.getString("login"),
-				rs.getString("pwd"));
+				rs.getString("pwd"),rs.getString("email"));
 				System.out.println("User Login : " + user);
 				return user;
 			}

@@ -5,23 +5,25 @@ import step4.dao.instance.UserDao;
 
 public final class DaoFabric {
 
-	// L'utilisation du mot clé volatile permet, en Java version 5 et supérieur,
-	// permet d'éviter le cas où "Singleton.instance" est non-nul,
-	// mais pas encore "réellement" instancié.
-	// De Java version 1.2 à 1.4, il est possible d'utiliser la classe
+	// L'utilisation du mot clï¿½ volatile permet, en Java version 5 et supï¿½rieur,
+	// permet d'ï¿½viter le cas oï¿½ "Singleton.instance" est non-nul,
+	// mais pas encore "rï¿½ellement" instanciï¿½.
+	// De Java version 1.2 ï¿½ 1.4, il est possible d'utiliser la classe
 	// ThreadLocal.
 	private static volatile DaoFabric instance = null;
 
-	private String DB_HOST = "localhost";
-	private String DB_PORT = "3306";
-	private String DB_NAME = "binome32";
-	private String DB_USER = "root";
-	private String DB_PWD = "";
+
+	private static final String DB_HOST = "localhost";
+	private static final String DB_PORT = "3306";
+	private static final String DB_NAME = "stepbystep";
+	private static final String DB_USER = "client";
+	private static final String DB_PWD = "client";
+	private static final String DB_TABLE_USER = "users";
 
 	private DaoFabric() {
 		super();
 		try {
-			// Chargement du Driver, puis établissement de la connexion
+			// Chargement du Driver, puis ï¿½tablissement de la connexion
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -29,17 +31,17 @@ public final class DaoFabric {
 	}
 
 	/**
-	 * Méthode permettant de renvoyer une instance de la classe Singleton
+	 * Mï¿½thode permettant de renvoyer une instance de la classe Singleton
 	 * 
 	 * @return Retourne l'instance du singleton.
 	 */
 	public final static DaoFabric getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet
-		// d'éviter un appel coûteux à synchronized,
+		// Le "Double-Checked Singleton"/"Singleton doublement vï¿½rifiï¿½" permet
+		// d'ï¿½viter un appel coï¿½teux ï¿½ synchronized,
 		// une fois que l'instanciation est faite.
 		if (DaoFabric.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
+			// Le mot-clï¿½ synchronized sur ce bloc empï¿½che toute instanciation
+			// multiple mï¿½me par diffï¿½rents "threads".
 			synchronized (DaoFabric.class) {
 				if (DaoFabric.instance == null) {
 					DaoFabric.instance = new DaoFabric();

@@ -1,5 +1,6 @@
 <ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"   
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:jsp="http://java.sun.com/JSP/Page"  
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       template="template.xhtml"
@@ -15,7 +16,14 @@
    
    <ui:define name="content">
    
-	   <h:form class="form-horizontal well signup-form" role="form">
+	   <h:form class="form-horizontal well signup-form" action="UserControlerBean.checkAndAddUser(#{userModelBean})">
+<jsp:useBean id="myUser" scope="session"	class="step4.model.UserModelBean" />
+<jsp:setProperty name="myUser" property="surname" />
+<jsp:setProperty name="myUser" property="lastname" />
+<jsp:setProperty name="myUser" property="age" />
+<jsp:setProperty name="myUser" property="login" />
+<jsp:setProperty name="myUser" property="email" />
+<jsp:setProperty name="myUser" property="pwd" />
 	   		 <div class="col-xs-12">
 		      <button type="submit" class="btn btn-xs btn-danger pull-right cancel-btn">X</button>
 		    </div>
