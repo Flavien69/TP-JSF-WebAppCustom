@@ -1,5 +1,6 @@
 package step4.processing;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
@@ -95,6 +96,24 @@ public class UserControlerBean {
 			}
 			
 
+	}
+	
+	public void getUsers(){
+		ArrayList<UserModelBean> users = this.userDao.getAllUser();
+		if( users!=null){
+			
+			//r�cup�re l'espace de m�moire de JSF
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			Map<String, Object> sessionMap = externalContext.getSessionMap();
+			
+			//place l'utilisateur dans l'espace de m�moire de JSF
+			sessionMap.put("users", users);
+		}
+	
+	}
+	
+	public void deleteUser(UserModelBean user){
+		this.userDao.deleteUser(user);	
 	}
 	
 	public void checkAndAddUser(UserSubmissionModelBean userSubmitted ){

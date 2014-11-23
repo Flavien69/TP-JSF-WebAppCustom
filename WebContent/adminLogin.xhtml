@@ -38,9 +38,13 @@
 		  </div>
 		</h:form>
 		<h:form class="form-horizontal well signup-form" rendered="#{loggedAdminUser!=null}">
+		<div class="welcoming">Welcome : <h:outputText  value="#{loggedAdminUser.login}"></h:outputText></div>
+		
+		
+		
 		<div class="home-btn">
 		   <div class="col-sm-6"> 
-		      	<button type="button" class="btn btn-warning"><h2>Manage User</h2></button>
+		      	<a href="mangeUser.jsf"><button type="button" class="btn btn-warning"><h2>Manage User</h2></button></a>
 		   </div>
 		   <div class="col-sm-6"> 
 		   		<a href="recipes.jsf"><button type="button" class="btn btn-success"><h2>Manage Recipes</h2></button></a>

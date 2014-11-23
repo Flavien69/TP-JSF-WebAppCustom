@@ -63,6 +63,30 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteUser(UserModelBean user) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+dB_USERTABLE+"` WHERE `users`.`email` = `"+user.getEmail()+"`";
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public ArrayList<UserModelBean> getAllUser() {
 		// return value
