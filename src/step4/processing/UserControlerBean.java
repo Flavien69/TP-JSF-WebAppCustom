@@ -25,7 +25,7 @@ public class UserControlerBean {
 		gv = new GrowlView();
 	}
 	
-	public String checkUser(LoginBean loginBean){
+	public void checkUser(LoginBean loginBean){
 		UserModelBean user = this.userDao.checkUser(loginBean.getLogin(), loginBean.getPwd());
 		if( user!=null){
 			
@@ -36,13 +36,16 @@ public class UserControlerBean {
 			//place l'utilisateur dans l'espace de m�moire de JSF
 			sessionMap.put("loggedUser", user);
 			
-			//redirect the current page
-			return "userdisplay.xhtml";
-		}else{
-			
-			//redirect the current page
-			return "userLogin.xhtml";
+			gv.setTitle("Connection success");
+			gv.setMessage("Log in successful");
+			gv.saveInfoMessage();
 		}
+		else{
+			gv.setTitle("Connection error");
+			gv.setMessage("Log in fail");
+			gv.saveErrorMessage();
+		}
+			
 	}
 	
 	public void logOutUser(){
@@ -55,13 +58,13 @@ public class UserControlerBean {
 			//place l'utilisateur dans l'espace de m�moire de JSF
 			sessionMap.put("loggedUser", null);
 			gv.setTitle("Connection success");
-			gv.setMessage("Log in successful");	
-			gv.saveMessage();
+			gv.setMessage("Log out successful");	
+			gv.saveInfoMessage();
 			
 			}catch(Exception e){
 				gv.setTitle("Connection error");
-				gv.setMessage("Log in fail");
-				gv.saveMessage();
+				gv.setMessage("Log out fail");
+				gv.saveErrorMessage();
 			}
 			
 

@@ -26,9 +26,10 @@
 	            </div>
 	            <div class="form-group">
 	              <h:inputSecret  type="password" class="form-control" value="#{loginBean.pwd}"></h:inputSecret >
-	            </div>
-	             <h:commandButton value="Log in" class="btn btn-success" action="#{userControlerBean.checkUser(loginBean)}">Sign in</h:commandButton>
-	            
+	           </div>
+	            <div class="form-group">
+	             <h:commandButton value="Log in" class="btn btn-success" action="#{userControlerBean.checkUser(loginBean)}"></h:commandButton>
+	             </div>
 	            <a href="signup.jsf" type="button" class="btn btn-primary">Sign up</a>
 	          </h:form>
 	          
@@ -38,14 +39,14 @@
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><value>#{loggedUser.login}</value><span class="caret"></span></a>
 			            <ul class="dropdown-menu" role="menu">
-			              <li><h:form><h:commandLink  value="Log Out" action="#{userControlerBean.logOutUser()}" actionListener="#{growlView.saveMessage}"></h:commandLink ></h:form></li>
+			              <li><h:form><h:commandLink  value="Log Out" action="#{userControlerBean.logOutUser()}"></h:commandLink ></h:form></li>
 			            </ul>
 			          </li>
 			        </ul>
 		       </h:panelGroup>
         
         </div><!--/.navbar-collapse -->
-        <!--<h:form><p:growl id="growl" /></h:form> si on veut les growl messages mais les warnning xml pourrissent l affichage -->
+        <h:form><p:growl id="growl"  life="2500"  showDetail="true"/></h:form>
 
       </div>
     </nav>

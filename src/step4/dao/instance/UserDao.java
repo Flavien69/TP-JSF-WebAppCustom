@@ -37,7 +37,7 @@ public class UserDao {
 			query = connection.createStatement();
 
 			// Executer puis parcourir les r�sultats
-			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
+			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`,`admin`) VALUES ('"
 					+ user.getEmail()
 					+ "', '"
 					+ user.getFirstname()
@@ -49,7 +49,9 @@ public class UserDao {
 					+ user.getLogin()
 					+ "', '"
 					+ user.getPwd()
-					+ "');";
+					+ "', "
+					+ user.isAdmin()
+					+ ");";
 			
 			
 			int rs = query.executeUpdate(sql);
@@ -85,7 +87,7 @@ public class UserDao {
 				UserModelBean user = new UserModelBean(
 						rs.getString("firstname"), rs.getString("lastname"),
 						rs.getInt("age"), rs.getString("login"),
-						rs.getString("pwd"),rs.getString("email"));
+						rs.getString("pwd"),rs.getString("email"),rs.getBoolean("admin"));
 				System.out.println("User : " + user);
 
 				// ajout de l'utilisateur r�cup�r� � la liste
@@ -125,7 +127,7 @@ public class UserDao {
 				UserModelBean user = new UserModelBean(
 				rs.getString("firstname"),rs.getString("lastname"), 
 				rs.getInt("age"), rs.getString("login"),
-				rs.getString("pwd"),rs.getString("email"));
+				rs.getString("pwd"),rs.getString("email"),rs.getBoolean("admin"));
 				System.out.println("User Login : " + user);
 				return user;
 			}

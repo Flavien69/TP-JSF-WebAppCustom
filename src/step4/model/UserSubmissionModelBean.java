@@ -15,8 +15,8 @@ public class UserSubmissionModelBean extends UserModelBean{
 	}
 
 	public UserSubmissionModelBean(String firstname, String lastname,  int age,
-			String login, String pwd, String email, String repeatPwd) {
-		super( firstname, lastname, age, login, pwd, email);
+			String login, String pwd, String email, String repeatPwd, boolean admin) {
+		super( firstname, lastname, age, login, pwd, email, admin);
 		this.repeatPwd = repeatPwd;
 	}
 
