@@ -34,7 +34,7 @@ public class UserControlerBean {
 			Map<String, Object> sessionMap = externalContext.getSessionMap();
 			
 			//place l'utilisateur dans l'espace de m�moire de JSF
-			sessionMap.put("loggedAdminUser", user);
+			sessionMap.put("loggedUser", user);
 			
 			gv.setTitle("Connection success");
 			gv.setMessage("Log in successful");
@@ -57,7 +57,7 @@ public class UserControlerBean {
 				Map<String, Object> sessionMap = externalContext.getSessionMap();
 				
 				//place l'utilisateur dans l'espace de m�moire de JSF
-				sessionMap.put("loggedUser", user);
+				sessionMap.put("loggedAdminUser", user);
 				
 				gv.setTitle("Connection success");
 				gv.setMessage("Log in successful");
