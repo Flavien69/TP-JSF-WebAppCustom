@@ -1,7 +1,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" 
-	  xmlns="http://www.w3.org/1999/xhtml"   
+	  xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
       <div class="container">
       
         <div class="navbar-header">
@@ -18,29 +20,32 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
         
-	          <h:form class="navbar-form navbar-right" role="form" rendered="true">
+	          <h:form class="navbar-form navbar-right" role="form" rendered="#{loggedUser==null}">
 	            <div class="form-group">
-	              <input type="text" placeholder="Email" class="form-control"></input>
+	              <h:inputText type="text"  class="form-control" value="#{loginBean.login}"></h:inputText>
 	            </div>
 	            <div class="form-group">
-	              <input type="password" placeholder="Password" class="form-control"></input>
+	              <h:inputSecret  type="password" class="form-control" value="#{loginBean.pwd}"></h:inputSecret >
 	            </div>
-	            <button type="submit" class="btn btn-success">Sign in</button>
+	             <h:commandButton value="Log in" class="btn btn-success" action="#{userControlerBean.checkUser(loginBean)}">Sign in</h:commandButton>
 	            
 	            <a href="signup.jsf" type="button" class="btn btn-primary">Sign up</a>
 	          </h:form>
 	          
-              <h:panelGroup rendered="false">
+	          
+              <h:panelGroup rendered="#{loggedUser!=null}">
 	              <ul class="nav navbar-nav pull-right" >
 			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nom prénom<span class="caret"></span></a>
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><value>#{loggedUser.login}</value><span class="caret"></span></a>
 			            <ul class="dropdown-menu" role="menu">
-			              <li><a href=''>Log Out</a></li>
+			              <li><h:form><h:commandLink  value="Log Out" action="#{userControlerBean.logOutUser()}" actionListener="#{growlView.saveMessage}"></h:commandLink ></h:form></li>
 			            </ul>
 			          </li>
 			        </ul>
 		       </h:panelGroup>
         
         </div><!--/.navbar-collapse -->
+        <!--<h:form><p:growl id="growl" /></h:form> si on veut les growl messages mais les warnning xml pourrissent l affichage -->
+
       </div>
     </nav>
