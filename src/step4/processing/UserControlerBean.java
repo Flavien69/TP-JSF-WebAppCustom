@@ -112,6 +112,20 @@ public class UserControlerBean {
 	
 	}
 	
+	public void setSelectedUser(UserModelBean user){
+		if( user!=null){
+			
+			UserSubmissionModelBean usmb = new UserSubmissionModelBean(user.getFirstname(),user.getLastname(),user.getAge(),user.getLogin(),user.getPwd(),user.getEmail(),user.getPwd(),user.isAdmin());
+			//r�cup�re l'espace de m�moire de JSF
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			Map<String, Object> sessionMap = externalContext.getSessionMap();
+			
+			//place l'utilisateur dans l'espace de m�moire de JSF
+			sessionMap.remove("selectedUser");
+			sessionMap.put("selectedUser", usmb);
+		}
+	}
+	
 	public void deleteUser(UserModelBean user){
 		this.userDao.deleteUser(user);	
 	}
@@ -123,6 +137,17 @@ public class UserControlerBean {
 		if (userSubmitted.getPwd().equals(userSubmitted.getRepeatPwd()))
 		{
 			this.userDao.addUser(userSubmitted);
+		}
+		//ajout de l'utilisateur � la base de donn�es
+		
+	}
+	public void checkAndUpdateUser(UserSubmissionModelBean userSubmitted ){
+		
+		//V�rifier les propri�t�s de l'utilisateur
+		 
+		if (userSubmitted.getPwd().equals(userSubmitted.getRepeatPwd()))
+		{
+			this.userDao.updateUser(userSubmitted);
 		}
 		//ajout de l'utilisateur � la base de donn�es
 		

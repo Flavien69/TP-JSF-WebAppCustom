@@ -64,6 +64,38 @@ public class UserDao {
 		}
 	}
 	
+	public void updateUser(UserModelBean user) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "UPDATE  `"+ dB_NAME +"`.`"+dB_USERTABLE+"` SET `firstname`='"+ user.getFirstname()
+					+"',`lastname`='"+ user.getFirstname()
+					+"',`age`="+ user.getAge()
+					+",`email`='"+ user.getEmail()
+					+"',`login`='"+ user.getLogin()
+					+"',`pwd`='"+ user.getPwd()
+					+"',`admin`="+ user.isAdmin()
+					+" WHERE `users`.`email` = '"+user.getEmail()+"'";
+			
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void deleteUser(UserModelBean user) {
 		// Cr�ation de la requ�te
 		java.sql.Statement query;
@@ -76,7 +108,7 @@ public class UserDao {
 			query = connection.createStatement();
 
 			// Executer puis parcourir les r�sultats
-			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+dB_USERTABLE+"` WHERE `users`.`email` = `"+user.getEmail()+"`";
+			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+dB_USERTABLE+"` WHERE `users`.`email` = '"+user.getEmail()+"'";
 			
 			int rs = query.executeUpdate(sql);
 			
