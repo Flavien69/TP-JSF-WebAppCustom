@@ -59,6 +59,7 @@ public class UserControlerBean {
 				
 				//place l'utilisateur dans l'espace de m�moire de JSF
 				sessionMap.put("loggedAdminUser", user);
+				sessionMap.put("loggedUser", user);
 				
 				gv.setTitle("Connection success");
 				gv.setMessage("Log in successful");
@@ -85,6 +86,8 @@ public class UserControlerBean {
 			
 			//place l'utilisateur dans l'espace de m�moire de JSF
 			sessionMap.put("loggedUser", null);
+			sessionMap.put("loggedAdminUser", null);
+			
 			gv.setTitle("Connection success");
 			gv.setMessage("Log out successful");	
 			gv.saveInfoMessage();
