@@ -113,17 +113,19 @@ public class UserControlerBean {
 	}
 	
 	public void setSelectedUser(UserModelBean user){
-		if( user!=null){
-			
-			UserSubmissionModelBean usmb = new UserSubmissionModelBean(user.getFirstname(),user.getLastname(),user.getAge(),user.getLogin(),user.getPwd(),user.getEmail(),user.getPwd(),user.isAdmin());
-			//r�cup�re l'espace de m�moire de JSF
-			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			Map<String, Object> sessionMap = externalContext.getSessionMap();
-			
-			//place l'utilisateur dans l'espace de m�moire de JSF
-			sessionMap.remove("selectedUser");
-			sessionMap.put("selectedUser", usmb);
-		}
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		UserSubmissionModelBean usmb = new UserSubmissionModelBean(user.getFirstname(),user.getLastname(),user.getAge(),user.getLogin(),user.getPwd(),user.getEmail(),user.getPwd(),user.isAdmin());
+
+		
+		//place l'utilisateur dans l'espace de m�moire de JSF
+		sessionMap.remove("selectedUser");
+		sessionMap.put("selectedUser", usmb);
+		
+		sessionMap.remove("pendingAction");
+		sessionMap.put("pendingAction", "update");
 	}
 	
 	public void deleteUser(UserModelBean user){
@@ -140,6 +142,11 @@ public class UserControlerBean {
 		}
 		//ajout de l'utilisateur � la base de donn�es
 		
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		sessionMap.remove("pendingAction");
+		sessionMap.put("pendingAction", null);
+		
 	}
 	public void checkAndUpdateUser(UserSubmissionModelBean userSubmitted ){
 		
@@ -149,6 +156,30 @@ public class UserControlerBean {
 		{
 			this.userDao.updateUser(userSubmitted);
 		}
+		
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		sessionMap.remove("pendingAction");
+		sessionMap.put("pendingAction", null);
+		//ajout de l'utilisateur � la base de donn�es
+		
+	}
+	
+public void initAddingUserPanel(){
+		
+		//V�rifier les propri�t�s de l'utilisateur
+		 
+		UserSubmissionModelBean usmb = new UserSubmissionModelBean("first name","last name",1,"login","pwd","exemple@gmail.com","pwd",false);
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		sessionMap.remove("selectedUser");
+		sessionMap.put("selectedUser", usmb);
+		
+		sessionMap.remove("pendingAction");
+		sessionMap.put("pendingAction", "adding");
 		//ajout de l'utilisateur � la base de donn�es
 		
 	}

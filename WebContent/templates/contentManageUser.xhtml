@@ -5,10 +5,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">  
 
-<h:form>
+
 <f:event type="preRenderView" listener="#{userControlerBean.getUsers()}" />
   <div class="col-sm-6">
-    <h:commandButton value="refresh" class="btn btn-default" action="#{userControlerBean.getUsers()}"></h:commandButton>
+  <h:form>
   	<p:dataTable var="user" value="#{users}">
 	    <p:column headerText="First Name">
 	        <h:outputText value="#{user.firstname}" />
@@ -31,12 +31,13 @@
 	        <h:commandButton value="delete" class="btn btn-default" action="#{userControlerBean.deleteUser(user)}" ></h:commandButton>
 	    </p:column>
 	</p:dataTable>
+		<h:commandButton value="Add User" class="btn btn-success col-sm-9 addUser" action="#{userControlerBean.initAddingUserPanel()}"></h:commandButton>
+		<h:commandButton value="refresh" class="btn btn-info col-sm-2 refresh pull-right" action="#{userControlerBean.getUsers()}"></h:commandButton>
+ </h:form>
+	 
   </div><!--userTable -->
   <div class="col-sm-6">
-   <h:form class="form-horizontal well"  rendered="#{selectedUser!=null}">
-	   		 <div class="col-xs-12">
-		      <button type="submit" class="btn btn-xs btn-danger pull-right cancel-btn">X</button>
-		    </div>
+   <h:form class="form-horizontal well"  rendered="#{pendingAction!=null}">
 		  <div class="form-group">
 		    <label for="inputFirstName" class="col-sm-2 control-label" >Fist Name</label>
 		    <div class="col-sm-10">
@@ -85,14 +86,14 @@
 		  <div class="form-group">
 		    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
 		    <div class="col-sm-10">
-				<h:inputSecret value="password" id="pwd" binding="#{passwordComponent}"></h:inputSecret>
+				<h:inputSecret value="#{selectedUser.pwd}" id="pwd" binding="#{passwordComponent}"></h:inputSecret>
 				<h:message for="pwd" />
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputRepeatPassword" class="col-sm-2 control-label">Repeat Password</label>
 		    <div class="col-sm-10">
-				<h:inputSecret id="confirm" value="password">
+				<h:inputSecret id="confirm" value="#{selectedUser.repeatPwd}">
 				    <f:validator validatorId="validators.password"/>
 				    <f:attribute name="passwordComponent" value="#{passwordComponent}"/>
 				</h:inputSecret>
@@ -101,14 +102,10 @@
 		  </div>		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-4">
-		      <h:commandButton class="btn btn-default" value="Save changes" action="#{userControlerBean.checkAndUpdateUser(selectedUser)}"></h:commandButton>
+		      <h:commandButton class="btn btn-default" value="Save changes" action="#{userControlerBean.checkAndUpdateUser(selectedUser)}"  rendered="#{pendingAction == 'update'}"></h:commandButton>
+		      <h:commandButton class="btn btn-default" value="Add user" action="#{userControlerBean.checkAndAddUser(selectedUser)}"  rendered="#{pendingAction == 'adding'}"></h:commandButton>
 		    </div>		    
 		  </div>
 		</h:form>
 	 </div>
-</h:form>
-
-
-
-
  </ui:composition>

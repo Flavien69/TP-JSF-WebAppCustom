@@ -180,7 +180,7 @@ public class UserDao {
 				return null;
 			} else {
 				// Cr�ation de l'utilisateur
-				UserModelBean user = new UserModelBean(
+				UserModelBean user = new UserModelBean(					
 				rs.getString("firstname"),rs.getString("lastname"), 
 				rs.getInt("age"), rs.getString("login"),
 				rs.getString("pwd"),rs.getString("email"),rs.getBoolean("admin"));
