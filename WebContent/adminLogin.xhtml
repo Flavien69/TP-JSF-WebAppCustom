@@ -37,8 +37,8 @@
 		    </div>		    
 		  </div>
 		</h:form>
-		<h:form class="form-horizontal well signup-form" rendered="#{loggedAdminUser!=null}">
-		<div class="welcoming">Welcome : <h:outputText  value="#{loggedAdminUser.login}"></h:outputText></div>
+		<h:form class="form-horizontal well signup-form" rendered="#{loggedUser!=null}">
+		<div class="welcoming">Welcome : <h:outputText  value="#{loggedUser.login}"></h:outputText></div>
 		
 		
 		

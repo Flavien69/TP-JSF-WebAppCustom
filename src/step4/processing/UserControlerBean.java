@@ -58,7 +58,6 @@ public class UserControlerBean {
 				Map<String, Object> sessionMap = externalContext.getSessionMap();
 				
 				//place l'utilisateur dans l'espace de m�moire de JSF
-				sessionMap.put("loggedAdminUser", user);
 				sessionMap.put("loggedUser", user);
 				
 				gv.setTitle("Connection success");
@@ -86,7 +85,6 @@ public class UserControlerBean {
 			
 			//place l'utilisateur dans l'espace de m�moire de JSF
 			sessionMap.put("loggedUser", null);
-			sessionMap.put("loggedAdminUser", null);
 			
 			gv.setTitle("Connection success");
 			gv.setMessage("Log out successful");	
@@ -149,6 +147,9 @@ public class UserControlerBean {
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		sessionMap.remove("pendingAction");
 		sessionMap.put("pendingAction", null);
+		
+		gv.setTitle("added with success");
+		gv.saveInfoMessage();
 		
 	}
 	public void checkAndUpdateUser(UserSubmissionModelBean userSubmitted ){
