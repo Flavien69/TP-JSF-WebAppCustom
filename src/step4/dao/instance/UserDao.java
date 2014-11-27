@@ -37,7 +37,7 @@ public class UserDao {
 			query = connection.createStatement();
 
 			// Executer puis parcourir les r�sultats
-			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`) VALUES ('"
+			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`,`admin`) VALUES ('"
 					+ user.getEmail()
 					+ "', '"
 					+ user.getFirstname()
@@ -49,8 +49,66 @@ public class UserDao {
 					+ user.getLogin()
 					+ "', '"
 					+ user.getPwd()
-					+ "');";
+					+ "', "
+					+ user.isAdmin()
+					+ ");";
 			
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateUser(UserModelBean user) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "UPDATE  `"+ dB_NAME +"`.`"+dB_USERTABLE+"` SET `firstname`='"+ user.getFirstname()
+					+"',`lastname`='"+ user.getFirstname()
+					+"',`age`="+ user.getAge()
+					+",`email`='"+ user.getEmail()
+					+"',`login`='"+ user.getLogin()
+					+"',`pwd`='"+ user.getPwd()
+					+"',`admin`="+ user.isAdmin()
+					+" WHERE `users`.`email` = '"+user.getEmail()+"'";
+			
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteUser(UserModelBean user) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+dB_USERTABLE+"` WHERE `users`.`email` = '"+user.getEmail()+"'";
 			
 			int rs = query.executeUpdate(sql);
 			
@@ -85,7 +143,7 @@ public class UserDao {
 				UserModelBean user = new UserModelBean(
 						rs.getString("firstname"), rs.getString("lastname"),
 						rs.getInt("age"), rs.getString("login"),
-						rs.getString("pwd"),rs.getString("email"));
+						rs.getString("pwd"),rs.getString("email"),rs.getBoolean("admin"));
 				System.out.println("User : " + user);
 
 				// ajout de l'utilisateur r�cup�r� � la liste
@@ -122,10 +180,10 @@ public class UserDao {
 				return null;
 			} else {
 				// Cr�ation de l'utilisateur
-				UserModelBean user = new UserModelBean(
+				UserModelBean user = new UserModelBean(					
 				rs.getString("firstname"),rs.getString("lastname"), 
 				rs.getInt("age"), rs.getString("login"),
-				rs.getString("pwd"),rs.getString("email"));
+				rs.getString("pwd"),rs.getString("email"),rs.getBoolean("admin"));
 				System.out.println("User Login : " + user);
 				return user;
 			}

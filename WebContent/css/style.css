@@ -26,3 +26,20 @@
 .header-recipes{
 	background-color: #5cb85c;
 }
+
+.header-usermanager{
+	background-color: #3cb85c;
+}
+
+.addUser{
+	margin-top: 30px;
+}
+
+.refresh{
+	margin-top: 30px;
+}
+
+.ui-growl {
+left:40%;
+top: 80px;
+}

@@ -1,0 +1,115 @@
+<ui:composition
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns="http://www.w3.org/1999/xhtml"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">  
+
+
+<f:event type="preRenderView" listener="#{userControlerBean.getUsers()}" />
+  <div class="col-sm-6">
+  <h:form>
+  	<p:dataTable var="user" value="#{users}">
+	    <p:column headerText="First Name">
+	        <h:outputText value="#{user.firstname}" />
+	    </p:column>
+	    
+	    <p:column headerText="last Name">
+	        <h:outputText value="#{user.lastname}" />
+	    </p:column>
+	     
+	    <p:column headerText="Login">
+	        <h:outputText value="#{user.login}" />
+	    </p:column>
+	 
+	    <p:column headerText="Admin">
+	        <h:outputText value="#{user.admin}" />
+	    </p:column>
+	 
+	    <p:column headerText="">
+	        <h:commandButton value="edit" class="btn btn-default" action="#{userControlerBean.setSelectedUser(user)}"></h:commandButton>
+	        <h:commandButton value="delete" class="btn btn-default" action="#{userControlerBean.deleteUser(user)}" ></h:commandButton>
+	    </p:column>
+	</p:dataTable>
+		<h:commandButton value="Add User" class="btn btn-success col-sm-9 addUser" action="#{userControlerBean.initAddingUserPanel()}"></h:commandButton>
+		<h:commandButton value="refresh" class="btn btn-info col-sm-2 refresh pull-right" action="#{userControlerBean.getUsers()}"></h:commandButton>
+ </h:form>
+	 
+  </div><!--userTable -->
+  <div class="col-sm-6">
+   <h:form class="form-horizontal well"  rendered="#{pendingAction!=null}">
+		  <div class="form-group">
+		    <label for="inputFirstName" class="col-sm-2 control-label" >Fist Name</label>
+		    <div class="col-sm-10">
+		      <h:inputText id="firstname" class="form-control" value="#{selectedUser.firstname}" required="true">
+				<f:validator validatorId="validators.lastname" />
+				</h:inputText>
+				<h:message for="firstname" showDetail="true" style="color:red"/>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+		    <div class="col-sm-10">
+   				<h:inputText id="lastname" class="form-control" value="#{selectedUser.lastname}" required="true">
+				<f:validator validatorId="validators.lastname" />
+				</h:inputText>
+				<h:message for="lastname" showDetail="true" style="color:red"/>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputAge" class="col-sm-2 control-label">Age</label>
+		    <div class="col-sm-10">
+		      <h:inputText type="number" class="form-control" id="inputAge" placeholder="Age" value="#{selectedUser.age}">
+			  <f:validator validatorId="validators.age" />
+			  </h:inputText>
+			  <h:message for="inputAge" showDetail="true" style="color:red"/>	   
+		    </div>
+		  </div>		  
+		  <div class="form-group">
+		    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-10">
+	   				<h:inputText id="email" class="form-control" value="#{selectedUser.email}" required="true">
+					<f:validator validatorId="validators.email" />
+					</h:inputText>
+					<h:message for="email" showDetail="true" style="color:red"/>
+				</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputLogin" class="col-sm-2 control-label">Login</label>
+		    <div class="col-sm-10">
+	   				<h:inputText id="login" class="form-control" value="#{selectedUser.login}" required="true">
+					<f:validator validatorId="validators.lastname" />
+					</h:inputText>
+					<h:message for="login" showDetail="true" style="color:red"/>
+			</div>
+		  </div>
+  		  <div class="form-group">
+		    <label for="admin" class="col-sm-2 control-label">Admin</label>
+	   				<h:selectBooleanCheckbox id="admin" class="form-control" value="#{selectedUser.admin}"></h:selectBooleanCheckbox>
+		  </div>		  		  		  	   
+		  <div class="form-group">
+		    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+		    <div class="col-sm-10">
+				<h:inputSecret value="#{selectedUser.pwd}" id="pwd" binding="#{passwordComponent}"></h:inputSecret>
+				<h:message for="pwd" />
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputRepeatPassword" class="col-sm-2 control-label">Repeat Password</label>
+		    <div class="col-sm-10">
+				<h:inputSecret id="confirm" value="#{selectedUser.repeatPwd}">
+				    <f:validator validatorId="validators.password"/>
+				    <f:attribute name="passwordComponent" value="#{passwordComponent}"/>
+				</h:inputSecret>
+				<h:message for="confirm" style="color:red"/>
+			</div>
+		  </div>		  
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-4">
+		      <h:commandButton class="btn btn-default" value="Save changes" action="#{userControlerBean.checkAndUpdateUser(selectedUser)}"  rendered="#{pendingAction == 'update'}"></h:commandButton>
+		      <h:commandButton class="btn btn-default" value="Add user" action="#{userControlerBean.checkAndAddUser(selectedUser)}"  rendered="#{pendingAction == 'adding'}"></h:commandButton>
+		    </div>		    
+		  </div>
+		</h:form>
+	 </div>
+ </ui:composition>

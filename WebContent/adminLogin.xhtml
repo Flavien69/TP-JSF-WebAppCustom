@@ -1,0 +1,56 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:jsp="http://java.sun.com/JSP/Page"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+   <ui:define name="header">
+   </ui:define>  
+
+	    
+   <ui:define name="content">
+   <h:form><p:growl id="growl"  life="2500"  showDetail="true"/></h:form>
+	   <h:form class="form-horizontal well signup-form" rendered="#{loggedAdminUser==null}">
+	      	<h1>Admin Login</h1>
+		  <div class="form-group">
+		    <label for="inputLogin" class="col-sm-2 control-label">Login</label>
+		    <div class="col-sm-10">
+	   				<h:inputText id="login" class="form-control" value="#{loginBean.login}" required="true">
+					<f:validator validatorId="validators.lastname" />
+					</h:inputText>
+					<h:message for="login" showDetail="true" style="color:red"/>
+			</div>
+		  </div>			  		  		  	   
+		  <div class="form-group">
+		    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+		    <div class="col-sm-10">
+				<h:inputSecret id="pwd" value="#{loginBean.pwd}" required="true"></h:inputSecret>
+				<h:message for="pwd" />
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-4">
+		      <h:commandButton value="Sign in" class="btn btn-default" action="#{userControlerBean.checkAdminUser(loginBean)}"></h:commandButton>
+		    </div>		    
+		  </div>
+		</h:form>
+		<h:form class="form-horizontal well signup-form" rendered="#{loggedAdminUser!=null}">
+		<div class="welcoming">Welcome : <h:outputText  value="#{loggedAdminUser.login}"></h:outputText></div>
+		
+		
+		
+		<div class="home-btn">
+		   <div class="col-sm-6"> 
+		      	<a href="mangeUser.jsf"><button type="button" class="btn btn-warning"><h2>Manage User</h2></button></a>
+		   </div>
+		   <div class="col-sm-6"> 
+		   		<a href="recipes.jsf"><button type="button" class="btn btn-success"><h2>Manage Recipes</h2></button></a>
+		   </div>	
+	   </div>   	
+		</h:form>
+   </ui:define>   
+
+ </ui:composition>

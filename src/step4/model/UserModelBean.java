@@ -15,18 +15,19 @@ public class UserModelBean implements Serializable{
 	private String login;
 	private String email;
 	private String pwd;
-	
+	private boolean admin = false;
 	//Contrainte BEAN constructeur sans param�tre
 	public UserModelBean() {
 	}
 	
-	public UserModelBean(String firstname, String lastname ,int age,String login,String pwd,String email) {
+	public UserModelBean(String firstname, String lastname ,int age,String login,String pwd,String email,boolean admin) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.age = age;
 		this.login = login;
 		this.pwd = pwd;
 		this.email = email;
+		this.admin = admin;
 	}
 
 	public String getFirstname() {
@@ -43,6 +44,14 @@ public class UserModelBean implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getLastname() {
