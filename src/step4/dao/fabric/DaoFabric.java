@@ -18,7 +18,6 @@ public final class DaoFabric {
 	private static final String DB_NAME = "cookMe";
 	private static final String DB_USER = "client";
 	private static final String DB_PWD = "client";
-	private static final String DB_TABLE_USER = "users";
 
 	private DaoFabric() {
 		super();
@@ -36,12 +35,9 @@ public final class DaoFabric {
 	 * @return Retourne l'instance du singleton.
 	 */
 	public final static DaoFabric getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement v�rifi�" permet
-		// d'�viter un appel co�teux � synchronized,
-		// une fois que l'instanciation est faite.
+
 		if (DaoFabric.instance == null) {
-			// Le mot-cl� synchronized sur ce bloc emp�che toute instanciation
-			// multiple m�me par diff�rents "threads".
+
 			synchronized (DaoFabric.class) {
 				if (DaoFabric.instance == null) {
 					DaoFabric.instance = new DaoFabric();

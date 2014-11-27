@@ -1,11 +1,9 @@
 package utils;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Warnings;
  
 @ManagedBean
 public class GrowlView {

@@ -1,5 +1,6 @@
 package step4.processing;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
@@ -42,6 +43,6 @@ public class RecipeControlerBean {
 	}
 
 	public void searchRecipes(RecipeModelBean recipe){
-		System.out.println("dd");
+		ArrayList<RecipeModelBean> recipes = recipeDao.getRecipesWithFilters(recipe.getDuration(), recipe.getExpertise(), recipe.getNbpeople(), recipe.getType());
 	}
 }
