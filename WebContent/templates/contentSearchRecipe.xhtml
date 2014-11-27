@@ -7,17 +7,11 @@
 	xmlns:p="http://primefaces.org/ui">  
 
 <h:form>
-<h:inputText value="#{userModelBean.lastname}"></h:inputText>
-	<h:commandButton action="#{recipeControlerBean.searchRecipes(recipeModelBean)}">Teach Me</h:commandButton>
-
-</h:form>
-
-<!-- <h:form>
 	<div class="container well">
 		<div class="row">
 			<div class="col-sm-6">
 				<h3>Preparation Duration</h3>
-				 <p:spinner value="#{userModelBean.age}"/>
+				 <p:spinner value="#{recipeModelBean.duration}"/>
 				
 			</div>
 			<div class="col-sm-6">
@@ -27,9 +21,9 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				<h3>Preparation Duration</h3>
-				 <p:spinner value="#{userModelBean.age}"/>
-				
+				<h3>For how many people</h3>
+<p:inputText id="txt1" value="5" />
+        <p:slider for="txt1" />
 			</div>
 			<div class="col-sm-6">
 				<h3>Cook expertise</h3>
@@ -39,7 +33,7 @@
 	</div> 
 	  
 	<h:commandButton action="#{recipeControlerBean.searchRecipes(recipeModelBean)}">Teach Me</h:commandButton>
-</h:form> -->
+</h:form> 
 
 
  </ui:composition>
