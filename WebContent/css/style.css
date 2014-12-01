@@ -44,6 +44,10 @@ left:40%;
 top: 80px;
 }
 
+#content{
+margin-bottom:85px;	
+}
+
 .ui-selectonemenu-trigger.ui-state-default.ui-corner-right{
 	-webkit-box-sizing: content-box !important;
 	-moz-box-sizing: content-box !important;

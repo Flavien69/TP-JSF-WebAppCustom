@@ -43,28 +43,37 @@ public class RecipeControlerBean {
 
 		
 	}
+	
+	
+	public void getRecipeById(RecipeModelBean recipeFromView){
+		
+		RecipeModelBean recipeDetail = recipeFromView;
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		sessionMap.put("recipeDetail", recipeDetail);
+		
+		try {
+			externalContext.redirect("recipeDetail.jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void searchRecipes(RecipeModelBean recipe){
-		int duration = recipe.getDuration();
-		int people = recipe.getNbpeople();
-		String type = recipe.getType();
+
 		List<RecipeModelBean> recipes = recipeDao.getRecipesWithFilters(recipe.getDuration(), recipe.getExpertise(), recipe.getNbpeople(), recipe.getType());
 		RecipeListModelBean recipeListBean = new RecipeListModelBean(recipes);
-		System.out.println("coucou");
 		
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		
-		sessionMap.remove("r");
-		if(recipeListBean.getRecipeList().size() != 0)
-			sessionMap.put("r", recipeListBean.getRecipeList());
-		else
-			sessionMap.put("r", recipeListBean.getRecipeList());
+		sessionMap.put("r", recipeListBean.getRecipeList());
+
 		
 		try {
 			externalContext.redirect("recipesResult.jsf");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -7,6 +7,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"> 
 
+	 		<h:form>
+			    <p:commandLink actionListener="#{recipeControlerBean.getRecipeById(2)}" ajax="false">
+			        <h:outputText value="eee" />
+			    </p:commandLink>
+			</h:form>
 			
 <h:form id="formRecipes" rendered="true">
 
@@ -31,10 +36,9 @@
  		</div>
  		<div class="col-md-7">
  		<h3 class="recipe-title">
-			<h:outputLink value="detailRecipe.jsf">
-			    <f:param name="recipeId" value="123" />
-			    <h:outputText value="#{recipe.title}" />
-			</h:outputLink>
+			    <p:commandLink actionListener="#{recipeControlerBean.getRecipeById(recipe)}" ajax="false">
+			        <h:outputText value="#{recipe.title}" />
+			    </p:commandLink>
 		</h3>
  		<div style="max-width: 300px">
 			<h:outputText value="#{fn:substring(recipe.description, 0, 230)}" />
