@@ -76,7 +76,7 @@ public class UserDao {
 
 			// Executer puis parcourir les r�sultats
 			String sql = "UPDATE  `"+ dB_NAME +"`.`"+dB_USERTABLE+"` SET `firstname`='"+ user.getFirstname()
-					+"',`lastname`='"+ user.getFirstname()
+					+"',`lastname`='"+ user.getLastname()
 					+"',`age`="+ user.getAge()
 					+",`email`='"+ user.getEmail()
 					+"',`login`='"+ user.getLogin()

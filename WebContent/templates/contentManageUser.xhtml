@@ -8,7 +8,7 @@
 
 <f:event type="preRenderView" listener="#{userControlerBean.getUsers()}" />
   <div class="col-sm-6">
-  <h:form>
+  <h:form  rendered="#{loggedUser.admin== true}">
   	<p:dataTable var="user" value="#{users}">
 	    <p:column headerText="First Name">
 	        <h:outputText value="#{user.firstname}" />
@@ -37,7 +37,7 @@
 	 
   </div><!--userTable -->
   <div class="col-sm-6">
-   <h:form class="form-horizontal well"  rendered="#{pendingAction!=null}">
+   <h:form class="form-horizontal well"  rendered="#{pendingAction!=null and   loggedUser.admin==true}">
 		  <div class="form-group">
 		    <label for="inputFirstName" class="col-sm-2 control-label" >Fist Name</label>
 		    <div class="col-sm-10">
@@ -111,5 +111,9 @@
 		    </div>		    
 		  </div>
 		</h:form>
-	 </div>
+	</div>	
+	<h:form rendered="#{loggedUser.admin != true}">
+		<div class="accessdinied">access dinied you have to be admin <a href="/TP-JSF-WebAppCustom/adminLogin.jsf">log in</a></div>
+	</h:form>
+	 
  </ui:composition>
