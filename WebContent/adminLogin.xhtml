@@ -13,7 +13,7 @@
 	    
    <ui:define name="content">
    <h:form><p:growl id="growl"  life="2500"  showDetail="true"/></h:form>
-	   <h:form class="form-horizontal well signup-form" rendered="#{loggedAdminUser==null}">
+	   <h:form class="form-horizontal well signup-form" rendered="#{ loggedUser.admin!=true}">
 	      	<h1>Admin Login</h1>
 		  <div class="form-group">
 		    <label for="inputLogin" class="col-sm-2 control-label">Login</label>
@@ -37,7 +37,7 @@
 		    </div>		    
 		  </div>
 		</h:form>
-		<h:form class="form-horizontal well signup-form" rendered="#{loggedUser!=null}">
+		<h:form class="form-horizontal well signup-form" rendered="#{ loggedUser.admin==true}">
 		<div class="welcoming">Welcome : <h:outputText  value="#{loggedUser.login}"></h:outputText></div>
 		
 		

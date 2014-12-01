@@ -40,6 +40,7 @@
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><value>#{loggedUser.login}</value><span class="caret"></span></a>
 			            <ul class="dropdown-menu" role="menu">
 			              <li><h:form><h:commandLink  value="Log Out" action="#{userControlerBean.logOutUser()}"></h:commandLink ></h:form></li>
+			              <li><h:form><h:commandLink  value="Manage" action="/adminLogin.jsf" rendered="#{ loggedUser.admin==true}"></h:commandLink ></h:form></li>
 			            </ul>
 			          </li>
 			        </ul>
