@@ -1,0 +1,49 @@
+<ui:composition
+
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns="http://www.w3.org/1999/xhtml"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"> 
+
+			
+<h:form id="formRecipes" rendered="true">
+
+    <p:dataGrid var="recipe" value="#{r}" columns="2" layout="grid"
+        rows="4" paginator="true" id="recipes" 
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="4,8">
+ 
+        <f:facet name="header">
+            Recipes found
+        </f:facet>
+ 
+ 		<div class="col-md-5">
+ 			<div class=" recipe-panel-parent panel panel-default">
+			  <div class="panel-body">
+			    <div class="recipes-panel"><span class="recipes-panel-icon glyphicon glyphicon-cog" aria-hidden="true"></span><h:outputText value="#{recipe.type}" /></div>
+			    <div class="recipes-panel"><span class="recipes-panel-icon glyphicon glyphicon-time" aria-hidden="true"></span><h:outputText value="#{recipe.duration}" /> hours</div>
+			    <div class="recipes-panel"><span class="recipes-panel-icon glyphicon glyphicon-user"></span><h:outputText value="#{recipe.nbpeople}" /> persons</div>
+			    <div class="recipes-panel"><span class="recipes-panel-icon glyphicon glyphicon-ok-circle" aria-hidden="true"></span><p:rating value="#{recipe.expertise}" readonly="true" /></div>
+			  </div>
+			</div>
+ 		</div>
+ 		<div class="col-md-7">
+ 		<h3 class="recipe-title">
+			<h:outputLink value="detailRecipe.jsf">
+			    <f:param name="recipeId" value="123" />
+			    <h:outputText value="#{recipe.title}" />
+			</h:outputLink>
+		</h3>
+ 		<div style="max-width: 300px">
+			<h:outputText value="#{fn:substring(recipe.description, 0, 230)}" />
+		</div>
+ 	</div>
+</p:dataGrid>
+ 
+    
+</h:form>
+
+
+ </ui:composition>

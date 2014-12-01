@@ -3,10 +3,11 @@ package step4.model;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class RecipeModelBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -16,24 +17,48 @@ public class RecipeModelBean implements Serializable{
 	private int nbpeople;
 	private int duration;
 	private String type;
+	private String img;
+	private  int id;
 	
 	public RecipeModelBean() {
 	}
 	
 	
-	public RecipeModelBean(String title,String description,int expertise,int duration,int nbpeople,String type) {
+	public RecipeModelBean(String title,String description,int expertise,int duration,int nbpeople,String type, String img, int id) {
 		this.title = title;
 		this.description = description;
 		this.expertise = expertise;
 		this.duration = duration;
 		this.nbpeople = nbpeople;
 		this.type = type;
+		this.img = img;
+		this.id = id;
 	}
 	
 	
 	
 	
 	
+	public String getImg() {
+		return img;
+	}
+
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}

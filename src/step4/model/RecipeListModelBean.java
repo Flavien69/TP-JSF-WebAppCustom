@@ -1,18 +1,23 @@
 package step4.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
-@RequestScoped
-public class RecipeListModelBean {
-	private List<RecipeModelBean> recipeList;
+@SessionScoped
+public class RecipeListModelBean implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private List<RecipeModelBean> recipeList = new ArrayList<RecipeModelBean>();
 	
 	public RecipeListModelBean() {
-		recipeList=new ArrayList<RecipeModelBean>();
+	}
+	
+	public RecipeListModelBean(List<RecipeModelBean> recipes) {
+		recipeList = recipes;
 	}
 	
 	public void addRecipeList(RecipeModelBean recipe){

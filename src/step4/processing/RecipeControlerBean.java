@@ -1,6 +1,7 @@
 package step4.processing;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
@@ -10,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import step4.dao.fabric.DaoFabric;
 import step4.dao.instance.RecipesDao;
+import step4.model.RecipeListModelBean;
 import step4.model.RecipeModelBean;
 
 @ManagedBean
@@ -43,6 +45,27 @@ public class RecipeControlerBean {
 	}
 
 	public void searchRecipes(RecipeModelBean recipe){
-		ArrayList<RecipeModelBean> recipes = recipeDao.getRecipesWithFilters(recipe.getDuration(), recipe.getExpertise(), recipe.getNbpeople(), recipe.getType());
+		int duration = recipe.getDuration();
+		int people = recipe.getNbpeople();
+		String type = recipe.getType();
+		List<RecipeModelBean> recipes = recipeDao.getRecipesWithFilters(recipe.getDuration(), recipe.getExpertise(), recipe.getNbpeople(), recipe.getType());
+		RecipeListModelBean recipeListBean = new RecipeListModelBean(recipes);
+		System.out.println("coucou");
+		
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		sessionMap.remove("r");
+		if(recipeListBean.getRecipeList().size() != 0)
+			sessionMap.put("r", recipeListBean.getRecipeList());
+		else
+			sessionMap.put("r", recipeListBean.getRecipeList());
+		
+		try {
+			externalContext.redirect("recipesResult.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -36,7 +36,6 @@ public class UserDao {
 			// Creation de l'�l�ment de requ�te
 			query = connection.createStatement();
 
-			// Executer puis parcourir les r�sultats
 			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_USERTABLE+"` (`email`, `firstname`, `lastname`, `age`, `login`, `pwd`,`admin`) VALUES ('"
 					+ user.getEmail()
 					+ "', '"

@@ -3,6 +3,7 @@ package step4.dao.instance;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import step4.model.RecipeModelBean;
 
@@ -72,7 +73,8 @@ public class RecipesDao {
 				RecipeModelBean recipe = new RecipeModelBean(
 						rs.getString("title"), rs.getString("description"),
 						rs.getInt("expertise"), rs.getInt("duration"),
-						rs.getInt("nbpeople"), rs.getString("type"));
+						rs.getInt("nbpeople"), rs.getString("type"),
+						rs.getString("img"),rs.getInt("id"));
 				System.out.println("Recipe : " + recipe);
 
 				// ajout de la recette r�cup�r�e � la liste
@@ -89,8 +91,8 @@ public class RecipesDao {
 		return recipeList;
 	}
 
-	public ArrayList<RecipeModelBean> getRecipesWithFilters(int duration, int expertise, int nbpeople, String type) {
-		ArrayList<RecipeModelBean> recipeList = new ArrayList<RecipeModelBean>();
+	public List<RecipeModelBean> getRecipesWithFilters(int duration, int expertise, int nbpeople, String type) {
+		List<RecipeModelBean> recipeList = new ArrayList<RecipeModelBean>();
 
 		java.sql.Statement query;
 
@@ -104,14 +106,15 @@ public class RecipesDao {
 
 			java.sql.ResultSet rs = query
 					.executeQuery("SELECT * FROM "+DB_RECIPESTABLE+" "
-							+ "WHERE 'duration'="+duration+" AND 'expertise'="+expertise+""
-							+ " AND 'nbpeople'="+nbpeople+" AND 'type'='"+type+"';");
+							+ "WHERE duration="+duration+" AND expertise="+expertise+""
+							+ " AND nbpeople="+nbpeople+" AND type='"+type+"';");
 			while (rs.next()) {
 				// Cr�ation de  la recette
 				RecipeModelBean recipe = new RecipeModelBean(
 						rs.getString("title"), rs.getString("description"),
 						rs.getInt("expertise"), rs.getInt("duration"),
-						rs.getInt("nbpeople"), rs.getString("type"));
+						rs.getInt("nbpeople"), rs.getString("type"),
+						rs.getString("img"),rs.getInt("id"));
 				System.out.println("Recipe : " + recipe);
 
 				recipeList.add(recipe);
