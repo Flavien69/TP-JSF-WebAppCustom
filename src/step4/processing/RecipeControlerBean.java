@@ -13,25 +13,28 @@ import step4.dao.fabric.DaoFabric;
 import step4.dao.instance.RecipesDao;
 import step4.model.RecipeListModelBean;
 import step4.model.RecipeModelBean;
+import utils.GrowlView;
 
 @ManagedBean
 @ApplicationScoped
 public class RecipeControlerBean {
 	private RecipesDao recipeDao;
+	private GrowlView gv;
 	
 	public RecipeControlerBean() {
 		this.recipeDao=DaoFabric.getInstance().createRecipesDao();
+		gv = new GrowlView();
 	}
 	
 	
 	public void loadAllRecipe(){
-//		ArrayList<RecipeModelBean> list = this.recipeDao.getAllRecipes();
-//		
-//		RecipeListModelBean recipeList=new RecipeListModelBean();
-//		
-//		for(RecipeModelBean recipe:list){
-//			//recipeList.addRecipeList(recipe);
-//		}
+		List<RecipeModelBean> list = this.recipeDao.getAllRecipes();
+		
+		RecipeListModelBean recipeList=new RecipeListModelBean();
+		
+		for(RecipeModelBean recipe:list){
+			recipeList.addRecipeList(recipe);
+		}
 		
 
 		//r�cup�re l'espace de m�moire de JSF
@@ -39,7 +42,7 @@ public class RecipeControlerBean {
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		
 		//place la liste de recette dans l'espace de m�moire de JSF
-		//sessionMap.put("recipeList", recipeList);
+		sessionMap.put("recipeList", recipeList.getRecipeList());
 
 		
 	}
@@ -67,5 +70,72 @@ public class RecipeControlerBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void initAddingRecipePanel(){
+		
+		//V�rifier les propri�t�s de l'utilisateur
+		 
+		RecipeModelBean usmb = new RecipeModelBean();
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		sessionMap.remove("selectedRecipe");
+		sessionMap.put("selectedRecipe", usmb);
+		
+		sessionMap.remove("pendingActionRecipe");
+		sessionMap.put("pendingActionRecipe", "adding");
+		//ajout de l'utilisateur � la base de donn�es
+		
+	}
+	
+	public void checkAndAddRecipe(RecipeModelBean recipeSubmitted ){
+		
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		this.recipeDao.addRecipe(recipeSubmitted);
+		
+		sessionMap.remove("pendingActionRecipe");
+		sessionMap.put("pendingActionRecipe", null);
+		
+		gv.setTitle("added with success");
+		gv.saveInfoMessage();
+		
+	}
+	
+	public void checkAndUpdateRecipe(RecipeModelBean recipeSubmitted  ){
+		
+		//V�rifier les propri�t�s de l'utilisateur
+		 
+		this.recipeDao.updateRecipe(recipeSubmitted);
+
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		sessionMap.remove("pendingActionRecipe");
+		sessionMap.put("pendingActionRecipe", null);
+		
+	}
+	
+	public void setSelectedRecipe(RecipeModelBean recipe){
+		//r�cup�re l'espace de m�moire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		
+		//place l'utilisateur dans l'espace de m�moire de JSF
+		sessionMap.remove("selectedRecipe");
+		sessionMap.put("selectedRecipe", recipe);
+		
+		sessionMap.remove("pendingActionRecipe");
+		sessionMap.put("pendingActionRecipe", "update");
+	}
+	
+	public void deleteRecipe(RecipeModelBean recipe){
+		this.recipeDao.deleteUser(recipe);	
+		gv.setTitle("delte successful");
+		gv.saveInfoMessage();
 	}
 }

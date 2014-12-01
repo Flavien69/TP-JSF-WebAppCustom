@@ -33,9 +33,9 @@
 	</p:dataTable>
 		<h:commandButton value="Add User" class="btn btn-success col-sm-9 addUser" action="#{userControlerBean.initAddingUserPanel()}"></h:commandButton>
 		<h:commandButton value="refresh" class="btn btn-info col-sm-2 refresh pull-right" action="#{userControlerBean.getUsers()}"></h:commandButton>
- </h:form>
-	 
+ </h:form> 
   </div><!--userTable -->
+  
   <div class="col-sm-6">
    <h:form class="form-horizontal well"  rendered="#{pendingAction!=null and   loggedUser.admin==true}">
 		  <div class="form-group">
