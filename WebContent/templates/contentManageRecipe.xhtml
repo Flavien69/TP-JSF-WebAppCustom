@@ -1,0 +1,65 @@
+<ui:composition
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns="http://www.w3.org/1999/xhtml"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">  
+
+
+<f:event type="preRenderView" listener="#{recipeControlerBean.loadAllRecipe()}" />
+  <div class="col-sm-6">
+  <h:form  rendered="#{loggedUser.admin== true}">
+  	<p:dataTable var="recipe" value="#{recipeList}">
+	    <p:column headerText="Name">
+	        <h:outputText value="#{recipe.title}" />
+	    </p:column>
+	    <p:column headerText="action">
+	        <h:commandButton value="edit" class="btn btn-default" action="#{recipeControlerBean.setSelectedRecipe(recipe)}"></h:commandButton>
+	        <h:commandButton value="delete" class="btn btn-default" action="#{recipeControlerBean.deleteRecipe(recipe)}" ></h:commandButton>
+	    </p:column>
+	</p:dataTable>
+		<h:commandButton value="Add Recipe" class="btn btn-success col-sm-9 addRecipe" action="#{recipeControlerBean.initAddingRecipePanel()}"></h:commandButton>
+ </h:form>
+</div><!--userTable -->
+
+
+ <div class="col-sm-6">
+   <h:form class="form-horizontal well"  rendered="#{pendingActionRecipe!=null and   loggedUser.admin==true}">
+   		<h3>title of recipe: </h3>
+   		<div class="inputRecipe col-sm-10 col-sm-offset-2">
+				 <p:inputText value="#{selectedRecipe.title}"/>
+		</div>
+		<h3>Preparation Duration</h3>
+		<div class="inputRecipe col-sm-10 col-sm-offset-2">
+			 <p:spinner value="#{selectedRecipe.duration}"/>
+		</div>
+		<h3>Cook expertise</h3>
+		<div class="inputRecipe col-sm-10 col-sm-offset-2">
+	    	<p:rating cancel="false" value="#{selectedRecipe.expertise}"/>
+		</div>
+		<h3>For how many people</h3>
+		<div class="inputRecipe col-sm-10 col-sm-offset-2">
+			<p:inputText id="txt1" value="#{selectedRecipe.nbpeople}" style="margin-bottom:20px"/>
+       		<p:slider id="slidernbpeople" for="txt1" />
+		</div>
+		<h3>Cook Type</h3>
+		<div class="inputRecipe col-sm-10 col-sm-offset-2">
+	        <p:selectOneMenu id="console" value="#{selectedRecipe.type}" style="width:125px">
+	            <f:selectItem itemLabel="Salad" itemValue="Salad" />
+	            <f:selectItem itemLabel="Meal" itemValue="Meal" />
+	            <f:selectItem itemLabel="Fish" itemValue="Fish" />
+	            <f:selectItem itemLabel="Dessert" itemValue="Dessert" />
+	        </p:selectOneMenu>
+		</div>		
+	  <div class="form-group">
+	    <div class="inputRecipe col-sm-offset-8 col-sm-4">
+	      <h:commandButton class="btn btn-default btn-success" value="Save changes" action="#{recipeControlerBean.checkAndUpdateRecipe(selectedRecipe)}"  rendered="#{pendingActionRecipe == 'update'}"></h:commandButton>
+	      <h:commandButton class="btn btn-default btn-success" value="Add recipe" action="#{recipeControlerBean.checkAndAddRecipe(selectedRecipe)}"  rendered="#{pendingActionRecipe == 'adding'}"></h:commandButton>
+	    </div>		    
+	  </div>
+	</h:form>
+	<h:form rendered="#{loggedUser.admin != true}">
+		<div class="accessdinied">access dinied you have to be admin <a href="/TP-JSF-WebAppCustom/adminLogin.jsf">log in</a></div>
+	</h:form>  
+	</div>		 
+ </ui:composition>

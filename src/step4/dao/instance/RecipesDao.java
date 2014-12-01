@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import step4.model.RecipeModelBean;
+import step4.model.UserModelBean;
 
 public class RecipesDao {
 
@@ -34,12 +35,14 @@ public class RecipesDao {
 					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 			query = connection.createStatement();
 
-			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+DB_RECIPESTABLE+"` (`title`, `description`, `expertise`, `duration`, `nbpeople`,`type`) VALUES ('"
+			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+DB_RECIPESTABLE+"` (`title`, `description`, `expertise`, `img` , `duration`, `nbpeople`,`type`) VALUES ('"
 					+ recipe.getTitle()
 					+ "', '"
 					+ recipe.getDescription()
 					+ "', '"
 					+ recipe.getExpertise()
+					+ "', '"
+					+ recipe.getImg()
 					+ "', '"
 					+ recipe.getDuration()
 					+ "', '"
@@ -128,5 +131,62 @@ public class RecipesDao {
 		}
 
 		return recipeList;
+	}
+	
+	public void updateRecipe(RecipeModelBean recipe) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "UPDATE  `"+ dB_NAME +"`.`"+DB_RECIPESTABLE+"` SET `title`='"+ recipe.getTitle()
+					+"',`description`='"+ recipe.getDescription()
+					+"',`expertise`='"+ recipe.getExpertise()
+					+"',`nbpeople`='"+ recipe.getNbpeople()
+					+"',`duration`='"+ recipe.getDuration()
+					+"',`type`='"+ recipe.getType()
+					+"',`img`='"+ recipe.getImg()
+					+"' WHERE `recipes`.`id` = '"+recipe.getId()+"'";
+
+			
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteUser(RecipeModelBean recipe) {
+		// Cr�ation de la requ�te
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			// Creation de l'�l�ment de requ�te
+			query = connection.createStatement();
+
+			// Executer puis parcourir les r�sultats
+			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+DB_RECIPESTABLE+"` WHERE `recipes`.`id` = '"+recipe.getId()+"'";
+			
+			int rs = query.executeUpdate(sql);
+			
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
